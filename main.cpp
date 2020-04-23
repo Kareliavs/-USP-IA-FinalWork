@@ -1,13 +1,6 @@
 #include <bits/stdc++.h> 
+#include <GL/glut.h> //Graphic Library
 ///Compilation -----> g++ -std=c++11 main.cpp -o demo -lglut -lGL
-//Graphic Library
-#include <GL/glut.h>
-#include <iostream>
-#include <vector>
-#include <stdio.h>
-#include <unistd.h>
-#include <cstring>
-
 using namespace std;
 unsigned t0, t1;
 float limit=1000000, size = 1.0f, maxx,minx,maxy,miny, cost=0;
@@ -24,7 +17,6 @@ float distance(float x1, float x2, float y1, float y2)
 {
     return sqrt(pow(x1-x2,2)+pow(y1-y2,2));
 }
-
 #include "HillClimbing.hpp"
 #include "Aasterisk.hpp"
 #include "DFS.hpp"
@@ -99,7 +91,6 @@ void Path()
 	cout<<"Execution Time(ms): " << (double(t1-t0)/CLOCKS_PER_SEC)*1000 << endl;
 	cout<<"Cost              : "<<cost<<endl;
 	if(dots_traveled[dots_traveled.size()-1]!=coord_fin)cout<<"META NO ACHIVED"<<endl;
-
 }
 
 void Algorithms()
@@ -115,7 +106,6 @@ void Algorithms()
     Path();
     DFS_Path=path;
     DFS_DT=dots_traveled;
-
 	cout<<"----------------BFS--------------"<<endl;
    	Clear();
    	t0=clock();
@@ -124,8 +114,7 @@ void Algorithms()
     Path();
     BFS_Path=path;
     BFS_DT=dots_traveled;
-    
-	cout<<"----------------A*--------------"<<endl;
+    cout<<"----------------A*--------------"<<endl;
    	Clear();
    	t0=clock();
    	a_aterisk(grafo);
@@ -133,7 +122,6 @@ void Algorithms()
    	Path();
    	AA_Path=path;
    	AA_DT=dots_traveled;
-
    	cout<<"-----------HillClimbing----------"<<endl;
    	Clear();
    	t0=clock();
@@ -143,7 +131,7 @@ void Algorithms()
    	HC_Path=path;
    	HC_DT=dots_traveled;
 }
-//////////////////////////////////////////////////////////////////////////////////
+
 void InitGLUT() 
 {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -186,8 +174,8 @@ void PaintScene()
 	}
    	glEnd();
    	//Dots Path
-	glPointSize(12.5);
-	glBegin(GL_POINTS);
+   	glPointSize(12.5);
+   	glBegin(GL_POINTS);
   	glColor3f(0.7f,0.3f,1.0f);
     for(int i =0; i<dots_traveled.size(); i++)
 	{
@@ -214,10 +202,8 @@ void ReProyect(int w, int h)
 	width = w;
    	high = h;
    	GLfloat format;
-   	if(h == 0) h = 1;
-
+  	if(h == 0) h = 1;
    	glViewport(-10, -10, w, h);
-
    	glMatrixMode(GL_PROJECTION);
    	glLoadIdentity();
 
@@ -255,19 +241,18 @@ void Zoom(int value)
     ReProyect(width,high);
     glutTimerFunc(33,Zoom,1);
     glutPostRedisplay();
-    
 }
 
 void Rows(int key, int x, int y) 
 {
-   if (key==GLUT_KEY_UP) up = 1;
-   if (key==GLUT_KEY_DOWN) down = 1;
+	if (key==GLUT_KEY_UP) up = 1;
+	if (key==GLUT_KEY_DOWN) down = 1;
 }
 
 void RowsUp(int key, int x, int y) 
 {
-   if (key==GLUT_KEY_UP) up = 0;
-   if (key==GLUT_KEY_DOWN) down = 0;
+	if (key==GLUT_KEY_UP) up = 0;
+	if (key==GLUT_KEY_DOWN) down = 0;
 }
 
 void NormalKeyHandler (unsigned char key, int x, int y)
@@ -277,6 +262,7 @@ void NormalKeyHandler (unsigned char key, int x, int y)
     if (key == 'a') AA_Key = 1;
     if (key == 'h') HC_Key = 1;
 }
+
 void NormalKeyHandlerUP (unsigned char key, int x, int y)
 {
     if (key == 'd') DFS_Key = 0;
@@ -284,7 +270,7 @@ void NormalKeyHandlerUP (unsigned char key, int x, int y)
     if (key == 'a') AA_Key = 0;
     if (key == 'h') HC_Key = 0;
 }
-//////////////////////////////////////////////////////////////////////////////////
+
 int main(int argc, char **argv)
 {
     cout<<"Number of dots"<<endl;
@@ -298,9 +284,8 @@ int main(int argc, char **argv)
     cout<<"b ---> BFS "<<endl;
     cout<<"a ---> A* "<<endl;
     cout<<"h ---> Hill Climbing "<<endl;
-    
-    srand(time(NULL));
     ///Random dots
+    srand(time(NULL));
     for(int i=0; i<N_DOTS; ++i)
     {
         float auxx=rand()%N_DOTS-rand()%N_DOTS;
